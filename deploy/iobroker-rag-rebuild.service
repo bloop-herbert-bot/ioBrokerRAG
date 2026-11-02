@@ -1,0 +1,10 @@
+[Unit]
+Description=Rebuild the ioBroker RAG index
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=rag
+ExecStart=/opt/iobroker-rag/deploy/rebuild.sh
+ExecStartPost=+/usr/bin/systemctl restart iobroker-rag
+TimeoutStartSec=4h

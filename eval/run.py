@@ -1,6 +1,6 @@
 import json,sys,time,urllib.request
-url=sys.argv[1]; rer=len(sys.argv)<3
-qs=[json.loads(l) for l in open('eval/questions.jsonl')]
+url=sys.argv[1]; rer=True; minimum=int(sys.argv[2]) if len(sys.argv)>2 else 0
+qs=[json.loads(l) for l in open(__file__.rsplit('/',1)[0]+'/questions.jsonl')]
 h1=h5=0;mrr=0;T=[];miss=[]
 for x in qs:
     b={"question":x["q"],"top_k":5}
@@ -15,3 +15,4 @@ for x in qs:
 n=len(qs);T.sort()
 print(f"{url}: n={n} Treffer@1 {h1} Treffer@5 {h5} MRR {mrr/n:.3f} median {T[n//2]:.2f}s max {T[-1]:.2f}s")
 print(' verfehlt:',miss)
+sys.exit(0 if h5>=minimum else 1)
