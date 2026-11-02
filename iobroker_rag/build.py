@@ -14,6 +14,7 @@ from . import chunking, privacy, sources, store
 
 ROOT = Path(__file__).resolve().parent.parent
 BATCH = 16
+QUICK = ["ioBroker/ioBroker.javascript", "ioBroker/adapter-core", "ioBroker/ioBroker", "ioBroker/create-adapter"]
 
 
 def collect(config: dict, repos_dir: Path, skip_sync: bool, only: list[str] | None):
@@ -100,10 +101,13 @@ def main() -> None:
     parser.add_argument("--skip-sync", action="store_true")
     parser.add_argument("--resume", action="store_true", help="continue embedding an unfinished staging build")
     parser.add_argument("--only", nargs="*", help="limit to these repositories")
+    parser.add_argument("--quick", action="store_true", help="small index for a first try, minutes instead of hours")
     parser.add_argument("--limit", type=int, help="stop after this many chunks, for tests")
     parser.add_argument("--chunks-only", action="store_true")
     parser.add_argument("--no-switch", action="store_true")
     args = parser.parse_args()
+    if args.quick:
+        args.only = QUICK
     config = sources.load_config(ROOT / "sources.json")
     index_dir = ROOT / "index"
     staging = index_dir / "staging"

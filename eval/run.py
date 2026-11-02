@@ -1,6 +1,6 @@
-import json,sys,time,urllib.request
+import json,os,sys,time,urllib.request
 url=sys.argv[1]; rer='--no-rerank' not in sys.argv; sys.argv=[a for a in sys.argv if a!='--no-rerank']; minimum=int(sys.argv[2]) if len(sys.argv)>2 else 0
-qs=[json.loads(l) for l in open(__file__.rsplit('/',1)[0]+'/questions.jsonl')]
+qs=[json.loads(l) for l in open(os.environ.get('EVAL_FILE') or __file__.rsplit('/',1)[0]+'/questions.jsonl')]
 h1=h5=0;mrr=0;T=[];miss=[]
 for x in qs:
     b={"question":x["q"],"top_k":5}

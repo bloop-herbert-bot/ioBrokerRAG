@@ -1,0 +1,65 @@
+{"q": "Wie erstelle ich im JavaScript-Adapter ein neues Skript und wie starte ich es?", "thema": "script", "gold": ["adapterref/iobroker.javascript", "javascript.md"]}
+{"q": "Wie lege ich per Skript einen eigenen Datenpunkt im Benutzer-Bereich der Objekte an?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Was ist der Unterschied zwischen createState und setObject im JavaScript-Adapter?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie reagiere ich in einem Skript mit on() auf die Änderung eines Datenpunkts?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie lese ich in einem Skript den Wert eines Fremd-Datenpunkts mit getState aus?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie schreibe ich mit setState einen Wert und was bedeutet der ack-Parameter?", "thema": "script", "gold": ["javascript.md", "state"]}
+{"q": "Wie führe ich ein Skript zeitgesteuert aus (schedule, Cron-Syntax, Astro-Zeiten)?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Warum läuft mein Skript nach einer Änderung nicht mehr korrekt und wie finde ich die Ursache im Log?", "thema": "fehler", "gold": ["/logging", "javascript.md"]}
+{"q": "Kann ich Zugangsdaten aus der Konfiguration eines anderen Adapters in einem Skript auslesen?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie rufe ich aus einem Skript eine externe HTTP-API ab (httpGet, request, axios)?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie sende ich aus einem Skript eine Push-Nachricht über den Pushover-Adapter?", "thema": "script", "gold": ["iobroker.pushover", "javascript.md"]}
+{"q": "Wie schreibe ich mit sendTo Werte in eine InfluxDB aus einem Skript?", "thema": "script", "gold": ["iobroker.influxdb", "javascript.md"]}
+{"q": "Wie nutze ich Globale Skripte und wie binde ich Funktionen aus anderen Skripten ein?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie kann ich in einem Blockly-Skript auf einen Datenpunkt triggern und darauf einen anderen setzen?", "thema": "script", "gold": ["blockly", "javascript.md"]}
+{"q": "Wie wandle ich ein Blockly-Skript in JavaScript um, um es weiter zu bearbeiten?", "thema": "script", "gold": ["blockly", "javascript.md"]}
+{"q": "Welche Möglichkeiten gibt es, mehrere Skripte zu gruppieren und gemeinsam zu starten oder zu stoppen?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie sorge ich dafür, dass ein Skript nur einmal pro Ereignis ausgeführt wird und nicht mehrfach feuert?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "Wie benenne ich Datenpunkte um oder verschiebe sie, ohne dass Skripte und Visualisierungen brechen?", "thema": "objekt", "gold": ["/admin/", "object"]}
+{"q": "Wie lösche ich verwaiste Objekte und Datenpunkte, die zu nicht mehr vorhandenen Geräten gehören?", "thema": "objekt", "gold": ["/admin/", "object"]}
+{"q": "Was bedeuten die Felder common und native bei einem ioBroker-Objekt?", "thema": "objekt", "gold": ["object", "objectsschema"]}
+{"q": "Welche Datentypen und Rollen kann ein State haben und wofür werden Rollen benötigt?", "thema": "objekt", "gold": ["object", "stateroles"]}
+{"q": "Wie richte ich den InfluxDB-Adapter so ein, dass bestimmte Datenpunkte geloggt werden?", "thema": "adapter", "gold": ["iobroker.influxdb"]}
+{"q": "Wie aktiviere ich die Historie für einen Datenpunkt und wie lege ich Aufbewahrungszeit und Entprellung fest?", "thema": "adapter", "gold": ["iobroker.history", "iobroker.influxdb"]}
+{"q": "Was ist der Unterschied zwischen InfluxDB v1 und v2 bei der Adapter-Konfiguration (Organisation, Bucket, Token)?", "thema": "adapter", "gold": ["iobroker.influxdb"]}
+{"q": "Wie verbinde ich Grafana mit einer InfluxDB, die Daten aus ioBroker enthält?", "thema": "adapter", "gold": ["grafana", "iobroker.influxdb"]}
+{"q": "Wie zeige ich GPS-Koordinaten aus ioBroker-Daten in einem Grafana-Geomap-Panel an?", "thema": "adapter", "gold": ["grafana", "iobroker.influxdb"]}
+{"q": "Warum bleibt ein Grafana-Dashboard leer, obwohl der Adapter Daten schreibt, und wie prüfe ich, ob Daten in der Datenbank ankommen?", "thema": "fehler", "gold": ["grafana", "iobroker.influxdb"]}
+{"q": "Wie installiere ich einen Adapter direkt von GitHub statt aus dem Repository?", "thema": "admin", "gold": ["/admin/", "/install"]}
+{"q": "Wie deaktiviere ich eine Adapter-Instanz, ohne sie zu löschen?", "thema": "admin", "gold": ["/admin/"]}
+{"q": "Wie entferne ich einen Adapter vollständig inklusive seiner Objekte?", "thema": "admin", "gold": ["/admin/"]}
+{"q": "Was ist der Unterschied zwischen einem Adapter und einer Instanz?", "thema": "admin", "gold": ["/admin/", "/dev/"]}
+{"q": "Wie ändere ich die IP-Adresse eines Geräts in der Konfiguration eines Adapters, nachdem sich das Netzwerk geändert hat?", "thema": "adapter", "gold": ["/admin/", "/dev/"]}
+{"q": "Wie binde ich Shelly-Geräte per MQTT oder CoAP an und was ist der Unterschied?", "thema": "adapter", "gold": ["iobroker.shelly"]}
+{"q": "Wie binde ich den Erreichbarkeits-Status von Netzwerkgeräten per Ping oder Netzwerk-Scan in ioBroker ein?", "thema": "adapter", "gold": ["iobroker.discovery", "iobroker.ping"]}
+{"q": "Wie richte ich Backups mit dem BackItUp-Adapter ein und wie spiele ich sie wieder ein?", "thema": "betrieb", "gold": ["backup", "iobroker.backitup"]}
+{"q": "Wie erstelle und restauriere ich ein Backup mit dem Befehl iobroker backup?", "thema": "betrieb", "gold": ["/install", "backup"]}
+{"q": "Wie aktualisiere ich ioBroker, Node.js und die Adapter sicher?", "thema": "betrieb", "gold": ["/install", "nodejs"]}
+{"q": "Wie sehe ich Logs der Instanzen und stelle den Log-Level für einen Adapter höher?", "thema": "betrieb", "gold": ["/admin/", "/logging"]}
+{"q": "Wie überwache ich per Skript oder Adapter, ob eine Instanz noch läuft?", "thema": "betrieb", "gold": ["/admin/"]}
+{"q": "Wie lege ich in VIS eine neue Ansicht an und wie unterscheide ich Layouts für Handy und Tablet?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "Wie kopiere oder exportiere ich ein VIS-Projekt, um es für ein anderes Gerät anzupassen?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "Wie binde ich ein Grafana-Diagramm per iFrame oder Widget in VIS ein?", "thema": "vis", "gold": ["grafana", "iobroker.vis"]}
+{"q": "Wie finde ich in VIS Widgets, die auf nicht mehr existierende Datenpunkte verweisen?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "Wie lege ich mit Bindings in VIS dynamische Texte und Sichtbarkeit anhand von Datenpunkten fest?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "Welche Fehlermeldung bedeutet 'Cannot read properties of undefined' in einem Skript und wie behebe ich sie?", "thema": "fehler", "gold": ["/logging", "javascript.md"]}
+{"q": "Was bedeutet die Meldung, dass ein Objekt nicht existiert, wenn ein Skript einen State liest?", "thema": "fehler", "gold": ["javascript.md", "object"]}
+{"q": "Warum meldet ein Adapter 'invalid credentials' oder Anmeldefehler und wie gehe ich vor?", "thema": "fehler", "gold": ["/admin/", "/logging"]}
+{"q": "Wie sorge ich für eine Warnung per Benachrichtigung, wenn ein Adapter oder Skript einen Fehler loggt?", "thema": "betrieb", "gold": ["iobroker.javascript", "iobroker.pushover"]}
+{"q": "Wie lässt sich ein Adapter vorübergehend nur im Winter oder saisonal aktivieren, ohne ihn zu löschen?", "thema": "admin", "gold": ["/admin/", "javascript.md"]}
+{"q": "Wie kann ich Datenpunkte mehrerer Adapter in einer Aufzählung (enum) für Funktionen und Gewerke gruppieren?", "thema": "objekt", "gold": ["/admin/"]}
+{"q": "How do I create a custom state from a script in the JavaScript adapter?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "How can I react to a state change in a script using on()?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "What is the meaning of the ack flag when calling setState?", "thema": "objekt", "gold": ["javascript.md", "state"]}
+{"q": "How can a script read another adapter's credentials, and is it supported?", "thema": "script", "gold": ["javascript.md"]}
+{"q": "How do I configure the InfluxDB adapter to log selected datapoints?", "thema": "adapter", "gold": ["iobroker.influxdb"]}
+{"q": "What is the difference between InfluxDB v1 and v2 settings in ioBroker?", "thema": "adapter", "gold": ["iobroker.influxdb"]}
+{"q": "How do I show a geomap panel in Grafana with latitude and longitude from ioBroker data?", "thema": "adapter", "gold": ["grafana", "iobroker.influxdb"]}
+{"q": "How do I install an adapter from a GitHub URL?", "thema": "admin", "gold": ["/admin/", "/install"]}
+{"q": "How do I disable an adapter instance without deleting it?", "thema": "admin", "gold": ["/admin/"]}
+{"q": "How do I remove orphaned objects of devices that no longer exist?", "thema": "objekt", "gold": ["/admin/", "object"]}
+{"q": "How do I set up regular backups and restore them?", "thema": "betrieb", "gold": ["backup", "iobroker.backitup"]}
+{"q": "How can I send a push notification from a script via Pushover?", "thema": "script", "gold": ["iobroker.pushover", "javascript.md"]}
+{"q": "How do I build separate VIS views for phone and tablet?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "How do I find VIS widgets that point to missing datapoints?", "thema": "vis", "gold": ["iobroker.vis"]}
+{"q": "How do I raise the log level of one adapter instance to debug a problem?", "thema": "fehler", "gold": ["/admin/", "/logging"]}
