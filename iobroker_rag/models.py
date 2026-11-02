@@ -1,12 +1,30 @@
 """Model wrappers. Imported lazily so tests run without torch."""
 from __future__ import annotations
 
+import json
 import os
+import urllib.request
 
 import numpy as np
 
 EMBED_MODEL = os.environ.get("IOB_RAG_EMBED", "BAAI/bge-m3")
 RERANK_MODEL = os.environ.get("IOB_RAG_RERANK", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
+
+
+class OllamaEmbedder:
+    """Same model through an Ollama endpoint, e.g. a GPU machine for the index build."""
+    dim = 1024
+
+    def __init__(self, url: str, model: str = "bge-m3:latest"):
+        self.url, self.model = url.rstrip("/"), model
+
+    def encode(self, texts: list[str], batch_size: int = 64) -> np.ndarray:
+        body = json.dumps({"model": self.model, "input": texts}).encode()
+        headers = {"Content-Type": "application/json", "X-Jobklasse": "background"}
+        request = urllib.request.Request(f"{self.url}/api/embed", data=body, headers=headers)
+        with urllib.request.urlopen(request, timeout=300) as response:
+            vectors = np.asarray(json.load(response)["embeddings"], dtype=np.float32)
+        return vectors / np.linalg.norm(vectors, axis=1, keepdims=True)
 
 
 class Embedder:

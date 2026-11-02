@@ -58,20 +58,24 @@ def write_chunks(config: dict, repos_dir: Path, staging: Path, skip_sync: bool, 
 def embed_all(staging: Path, count: int) -> None:
     """Resumable: the vector file grows in row order, so a restart continues at its end."""
     import sqlite3
-    from .models import EMBED_MODEL, Embedder
-    embedder = Embedder()
+    from .models import EMBED_MODEL, Embedder, OllamaEmbedder
+    url = os.environ.get("IOB_RAG_OLLAMA")
+    embedder = OllamaEmbedder(url) if url else Embedder()
+    batch = 64 if url else BATCH
     path = staging / "vectors.f32"
     width = embedder.dim * 4
     done = path.stat().st_size // width if path.exists() else 0
+    if path.exists():
+        os.truncate(path, done * width)   # an interrupted write leaves a partial row
     con = sqlite3.connect(staging / "chunks.db")
     started = time.time()
     with path.open("ab") as out:
-        for start in range(done, count, BATCH):
-            rows = con.execute("SELECT heading, text FROM chunks WHERE id > ? ORDER BY id LIMIT ?", (start, BATCH)).fetchall()
+        for step, start in enumerate(range(done, count, batch), 1):
+            rows = con.execute("SELECT heading, text FROM chunks WHERE id > ? ORDER BY id LIMIT ?", (start, batch)).fetchall()
             out.write(embedder.encode([f"{h}\n{t}".strip() for h, t in rows]).tobytes())
             out.flush()
             finished = start + len(rows)
-            if finished % (BATCH * 25) == 0:
+            if step % 25 == 0:
                 rate = (finished - done) / max(time.time() - started, 1)
                 print(f"embedded {finished}/{count}, {rate:.1f}/s, rest {(count - finished) / max(rate, .01) / 3600:.1f} h", flush=True)
     np.save(staging / "ids.npy", np.arange(1, count + 1))
