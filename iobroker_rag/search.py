@@ -38,6 +38,7 @@ class Hit:
     license: str
     commit: str
     score: float
+    relevance: float = 0.0
 
 
 class Searcher:
@@ -55,6 +56,8 @@ class Searcher:
             texts = [f"{rows[i]['heading']}\n{rows[i]['text']}" for i in pool]
             scores = dict(zip(pool, self.reranker.score(question, texts)))
             ranked = sorted(pool, key=lambda i: -scores[i])
+        top = ranked[:top_k]
+        similarity = self.index.similarity(vector, top) if hasattr(self.index, "similarity") else {}
         return [Hit(rows[i]["repo"], rows[i]["path"], rows[i]["heading"], rows[i]["text"], rows[i]["kind"],
-                    rows[i]["language"], rows[i]["license"], rows[i]["commit_sha"], float(scores[i]))
-                for i in ranked[:top_k]]
+                    rows[i]["language"], rows[i]["license"], rows[i]["commit_sha"], float(scores[i]),
+                    float(similarity.get(i, 0.0))) for i in top]

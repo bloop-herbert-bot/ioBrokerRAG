@@ -49,6 +49,10 @@ class Index:
         top = np.argpartition(-scores, limit - 1)[:limit]
         return [int(self.ids[i]) for i in top[np.argsort(-scores[top])]]
 
+    def similarity(self, vector: np.ndarray, ids: list[int]) -> dict[int, float]:
+        """Cosine per chunk id; row = id - 1, ids are consecutive from 1."""
+        return {i: float(self.vectors[i - 1] @ vector) for i in ids}
+
     def keyword(self, question: str, limit: int) -> list[int]:
         query = fts_query(question)
         if not query:

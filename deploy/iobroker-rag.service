@@ -1,0 +1,19 @@
+[Unit]
+Description=ioBroker RAG
+After=network-online.target
+
+[Service]
+User=rag
+WorkingDirectory=/opt/iobroker-rag
+Environment=HF_HOME=/opt/iobroker-rag/hf HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
+ExecStart=/opt/iobroker-rag/.venv/bin/uvicorn iobroker_rag.server:app --host 0.0.0.0 --port 8321
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/iobroker-rag/hf
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
