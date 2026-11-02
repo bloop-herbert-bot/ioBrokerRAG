@@ -17,10 +17,17 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 curl -X POST localhost:8322/query -H 'Content-Type: application/json' -d '{"question":"How do I set a state with ack?","top_k":5}'
 ```
 
+The server also speaks MCP at `/mcp`. See [integrations](docs/integrations.md) and [operations](docs/operations.md).
+
 ## Tests
 ```bash
-.venv/bin/pytest
+pip install -r requirements-dev.txt
+pytest
 ```
+`eval/run.py` measures search quality against a running server.
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## License
 MIT. Indexed content stays under the license of its source repository.

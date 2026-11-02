@@ -1,5 +1,5 @@
 import json,sys,time,urllib.request
-url=sys.argv[1]; rer=True; minimum=int(sys.argv[2]) if len(sys.argv)>2 else 0
+url=sys.argv[1]; rer='--no-rerank' not in sys.argv; sys.argv=[a for a in sys.argv if a!='--no-rerank']; minimum=int(sys.argv[2]) if len(sys.argv)>2 else 0
 qs=[json.loads(l) for l in open(__file__.rsplit('/',1)[0]+'/questions.jsonl')]
 h1=h5=0;mrr=0;T=[];miss=[]
 for x in qs:

@@ -2,7 +2,7 @@
 Description=Weekly ioBroker RAG rebuild
 
 [Timer]
-OnCalendar=Sun 23:15
+OnCalendar=Mon 00:10
 Persistent=false
 
 [Install]

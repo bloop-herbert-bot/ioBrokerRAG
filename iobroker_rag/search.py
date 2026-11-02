@@ -1,11 +1,12 @@
 """Hybrid retrieval: vectors + BM25, Reciprocal Rank Fusion, optional reranking."""
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 
 RRF_K = 60
 CANDIDATES = 50
-RERANK_POOL = 24
+RERANK_POOL = int(os.environ.get("IOB_RAG_RERANK_POOL", "24"))
 
 
 def fuse(rankings: list[list[int]], k: int = RRF_K) -> list[int]:
