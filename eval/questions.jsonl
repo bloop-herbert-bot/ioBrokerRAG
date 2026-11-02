@@ -1,0 +1,30 @@
+{"q":"Wie setze ich in einem Skript einen State mit Bestätigung ack=true?","gold":["javascript.md"]}
+{"q":"How do I subscribe to state changes in a JavaScript script?","gold":["javascript.md"]}
+{"q":"Wie führe ich ein Skript täglich zum Sonnenuntergang aus?","gold":["javascript.md"]}
+{"q":"How can I select all states of an enum room with the $ selector?","gold":["javascript.md"]}
+{"q":"Wie lege ich im Skriptadapter einen eigenen Datenpunkt unter 0_userdata an?","gold":["javascript.md"]}
+{"q":"How do I delay a setState and cancel it again?","gold":["javascript.md"]}
+{"q":"Wie sende ich aus einem Skript eine Nachricht an einen anderen Adapter?","gold":["javascript.md"]}
+{"q":"What does the role level.temperature mean and which roles are valid for states?","gold":["STATE_ROLES.md","stateroles.md"]}
+{"q":"Welche Felder gehören in die io-package.json eines Adapters?","gold":["iopackage.md","SCHEMA.md"]}
+{"q":"How do I define an admin configuration page with jsonConfig?","gold":["adapterjsonconfig.md","jsonConfig"]}
+{"q":"Wie veröffentliche ich meinen Adapter im Latest-Repository?","gold":["adapterpublish.md","ioBroker.repositories/README.md"]}
+{"q":"How do I debug an adapter with VS Code?","gold":["adapterdebug.md","adapterdev.md"]}
+{"q":"Wie schreibe ich Tests für einen Adapter mit GitHub Actions?","gold":["adaptertesting.md"]}
+{"q":"What is an alias in ioBroker and how do I create one?","gold":["aliases.md"]}
+{"q":"Wie richte ich ein Multihost-System mit Master und Slave ein?","gold":["multihost"]}
+{"q":"iobroker fix command what does it do when the installation is broken","gold":["trouble","install"]}
+{"q":"Wie sichere ich ioBroker und stelle ein Backup wieder her?","gold":["backup"]}
+{"q":"How do I switch the states database from jsonl to Redis?","gold":["redis"]}
+{"q":"Was bedeutet das ack Flag bei einem State?","gold":["basics","objectsschema","javascript.md","SCHEMA.md"]}
+{"q":"What does adapter-core getAbsoluteDefaultDataDir do?","gold":["adapter-core/"]}
+{"q":"How do I use the Device Manager with dm-utils in an adapter?","gold":["dm-utils/"]}
+{"q":"Welche Provider unterstützt ai-core und wie wird Ollama angebunden?","gold":["ai-core/"]}
+{"q":"Which tools does the ioBroker MCP adapter expose?","gold":["ioBroker.mcp/"]}
+{"q":"Wie erstelle ich mit dem Adapter-Creator ein neues Adapter-Projekt?","gold":["create-adapter/","adapterdev.md","adaptertemplate.md"]}
+{"q":"Blockly Trigger Block: wie reagiere ich auf eine Zustandsänderung?","gold":["blockly.md"]}
+{"q":"How do I write a function block diagram rule?","gold":["fbd.md"]}
+{"q":"setObjectNotExists adapter method","gold":["ioBroker.js-controller/","adapter"]}
+{"q":"Wie funktioniert die Instanz-Kommunikation mit sendTo und onMessage im Adapter?","gold":["ioBroker.js-controller/","adapterdev.md","messagebox","bestpractices.md"]}
+{"q":"Fehlermeldung: Cannot find js-controller, was tun?","gold":["trouble","faq"]}
+{"q":"Wo liegen Sicherheitshinweise für Adapter-Entwickler?","gold":["adaptersecurity.md"]}
