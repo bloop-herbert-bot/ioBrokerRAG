@@ -1,0 +1,24 @@
+{
+  "_comment": "Allowlist. Only these public repositories are indexed. A repository is added only after its license was checked.",
+  "languages": ["de", "en"],
+  "exclude_dirs": ["node_modules", "build", "dist", ".git", "archive", "img", "images", "admin/assets", "test/lib", "coverage", "engine-2", "engine"],
+  "exclude_files": ["package-lock.json", "CHANGELOG_OLD.md"],
+  "max_file_bytes": 400000,
+  "repos": [
+    {"repo": "ioBroker/ioBroker.docs", "branch": "master", "license": "MIT", "include": ["docs/"]},
+    {"repo": "ioBroker/ioBroker.javascript", "branch": "master", "license": "MIT", "include": ["docs/", "README.md", "src/lib/sandbox.ts", "src/lib/javascript.d.ts"]},
+    {"repo": "ioBroker/ioBroker.js-controller", "branch": "master", "license": "MIT", "include": ["packages/", "README.md", "CHANGELOG.md"]},
+    {"repo": "ioBroker/ioBroker.admin", "branch": "master", "license": "MIT", "include": ["README.md", "packages/jsonConfig/", "src-admin/README.md"]},
+    {"repo": "ioBroker/adapter-core", "branch": "master", "license": "MIT", "include": ["README.md", "src/"]},
+    {"repo": "ioBroker/dm-utils", "branch": "main", "license": "MIT", "include": ["README.md", "src/"]},
+    {"repo": "ioBroker/ioBroker.simple-api", "branch": "master", "license": "MIT", "include": ["README.md", "docs/"]},
+    {"repo": "ioBroker/ioBroker.socket-classes", "branch": "main", "license": "MIT", "include": ["README.md", "src/"]},
+    {"repo": "ioBroker/socket-client", "branch": "main", "license": "MIT", "include": ["README.md", "src/"]},
+    {"repo": "ioBroker/webserver", "branch": "main", "license": "MIT", "include": ["README.md", "src/"]},
+    {"repo": "ioBroker/ioBroker.repositories", "branch": "master", "license": "MIT", "include": ["README.md"]},
+    {"repo": "ioBroker/ioBroker", "branch": "master", "license": "MIT", "include": ["README.md", "doc/"]},
+    {"repo": "ioBroker/create-adapter", "branch": "master", "license": "MIT", "include": ["README.md", "docs/"]},
+    {"repo": "ioBroker/ioBroker.mcp", "branch": "main", "license": "MIT", "include": ["README.md"]},
+    {"repo": "ioBroker/ai-core", "branch": "main", "license": "MIT", "include": ["README.md", "src/"]}
+  ]
+}
