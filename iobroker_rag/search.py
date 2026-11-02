@@ -8,7 +8,7 @@ from dataclasses import dataclass
 RRF_K = 60
 CANDIDATES = 50
 RERANK_POOL = int(os.environ.get("IOB_RAG_RERANK_POOL", "24"))
-CORE_BOOST = float(os.environ.get("IOB_RAG_CORE_BOOST", "0"))
+CORE_BOOST = float(os.environ.get("IOB_RAG_CORE_BOOST", "2"))
 ADAPTER_PATH = re.compile(r"adapterref/iobroker\.([^/]+)/")
 
 

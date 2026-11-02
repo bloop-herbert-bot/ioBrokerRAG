@@ -27,5 +27,6 @@ It runs in the browser: set `IOB_RAG_CORS` to the origin of the editor. A page s
 | `IOB_RAG_TOKEN` | if set, every request except `/health` needs `Authorization: Bearer <token>` |
 | `IOB_RAG_CORS` | comma separated origins allowed from a browser |
 | `IOB_RAG_RERANK_POOL` | candidates for the reranker, fewer is faster |
+| `IOB_RAG_CORE_BOOST` | penalty for code and unrelated adapter READMEs, default 2, 0 turns it off |
 | `IOB_RAG_INDEX` | index directory |
 | `IOB_RAG_OLLAMA` | build embeddings through Ollama, e.g. on a GPU machine |
