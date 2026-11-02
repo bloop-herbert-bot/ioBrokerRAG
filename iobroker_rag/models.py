@@ -32,7 +32,7 @@ class Embedder:
         from sentence_transformers import SentenceTransformer
         self.model = SentenceTransformer(name, device="cpu")
         self.model.max_seq_length = 512
-        self.dim = self.model.get_sentence_embedding_dimension()
+        self.dim = self.model.get_embedding_dimension()
 
     def encode(self, texts: list[str], batch_size: int = 16) -> np.ndarray:
         vectors = self.model.encode(texts, batch_size=batch_size, normalize_embeddings=True, show_progress_bar=False)

@@ -2,11 +2,14 @@
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 
 RRF_K = 60
 CANDIDATES = 50
 RERANK_POOL = int(os.environ.get("IOB_RAG_RERANK_POOL", "24"))
+CORE_BOOST = float(os.environ.get("IOB_RAG_CORE_BOOST", "0"))
+ADAPTER_PATH = re.compile(r"adapterref/iobroker\.([^/]+)/")
 
 
 def fuse(rankings: list[list[int]], k: int = RRF_K) -> list[int]:
@@ -26,6 +29,14 @@ def diversify(ids: list[int], key, per_file: int = 2) -> list[int]:
         seen[k] = seen.get(k, 0) + 1
         (head if seen[k] <= per_file else tail).append(i)
     return head + tail
+
+
+def core_penalty(question: str, kind: str, path: str) -> float:
+    """General questions drown in the READMEs of 700 adapters and in source code. A named adapter is not penalized."""
+    match = ADAPTER_PATH.search(path)
+    if match:
+        return 0.0 if match.group(1).replace("-", " ") in question.lower().replace("-", " ") else CORE_BOOST
+    return CORE_BOOST if kind == "code" else 0.0
 
 
 @dataclass
@@ -55,7 +66,8 @@ class Searcher:
         if rerank and self.reranker is not None:
             pool = ranked[:RERANK_POOL]
             texts = [f"{rows[i]['heading']}\n{rows[i]['text']}" for i in pool]
-            scores = dict(zip(pool, self.reranker.score(question, texts)))
+            raw = self.reranker.score(question, texts)
+            scores = {i: value - core_penalty(question, rows[i]["kind"], rows[i]["path"]) for i, value in zip(pool, raw)}
             ranked = sorted(pool, key=lambda i: -scores[i])
         top = ranked[:top_k]
         similarity = self.index.similarity(vector, top) if hasattr(self.index, "similarity") else {}

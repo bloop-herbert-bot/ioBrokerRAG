@@ -74,3 +74,12 @@ class FakeReranker:
 def test_search_without_and_with_reranker():
     assert search.Searcher(FakeIndex(), FakeEmbedder()).search("q", 1)[0].path == "p2"
     assert search.Searcher(FakeIndex(), FakeEmbedder(), FakeReranker()).search("q", 1)[0].path == "p3"
+
+
+def test_core_penalty(monkeypatch):
+    monkeypatch.setattr(search, "CORE_BOOST", 2.0)
+    readme = "docs/de/adapterref/iobroker.shelly/README.md"
+    assert search.core_penalty("Wie richte ich Backups ein?", "doc", readme) == 2.0
+    assert search.core_penalty("Shelly per MQTT binden", "doc", readme) == 0.0
+    assert search.core_penalty("Wie richte ich Backups ein?", "doc", "docs/de/basics/x.md") == 0.0
+    assert search.core_penalty("setState", "code", "packages/x.ts") == 2.0
