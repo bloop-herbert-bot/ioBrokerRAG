@@ -16,12 +16,12 @@ Streamable HTTP at `/mcp`, one tool: `search_iobroker_docs(question, top_k)`. Ex
 `integrations/ai-gui/searchIoBrokerDocs.ts` is a tool for `createToolSet` of `@iobroker/ai-gui` 0.0.5.
 
 ```ts
-createToolSet(ioBrokerReadTools(socket), searchIoBrokerDocsTool('http://<host>:8321'));
+createToolSet(ioBrokerReadTools(socket), searchIoBrokerDocsTool('http://<host>:8321', '<token>'));
 ```
 
-It runs in the browser: set `IOB_RAG_CORS` to the origin of the editor. A page served over HTTPS cannot call an HTTP service, so that setup needs a reverse proxy with TLS. The tool sends no `Authorization` header, so it only works against a service without `IOB_RAG_TOKEN`.
+It runs in the browser: set `IOB_RAG_CORS` to the origin of the editor. A page served over HTTPS cannot call an HTTP service, so that setup needs a reverse proxy with TLS. The second argument is optional and is sent as `Authorization: Bearer` for a service with `IOB_RAG_TOKEN`. Every user of the editor can read that token, so it keeps other clients on the network away, not the editor's users.
 
-Tested so far (2026-11-03): the file compiles against the published types, `createToolSet(...).run('search_iobroker_docs', ...)` returns the rendered context, and a page in WebKit reaches the service when its origin is in `IOB_RAG_CORS` and is blocked by the preflight when it is not. Not yet tested inside a real editor build of `admin`, `javascript` or `vis-2`.
+Tested so far (2026-11-03): the file compiles against the published types, `createToolSet(...).run('search_iobroker_docs', ...)` returns the rendered context with and without token, and a page in WebKit reaches the service when its origin is in `IOB_RAG_CORS` and is blocked by the preflight when it is not. Not yet tested inside a real editor build of `admin`, `javascript` or `vis-2`.
 
 ## Configuration
 | Variable | Purpose |

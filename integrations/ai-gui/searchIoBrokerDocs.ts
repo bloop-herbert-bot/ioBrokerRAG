@@ -3,8 +3,14 @@ import type { AiTool } from '@iobroker/ai-gui';
 /**
  * Documentation search as a tool for the AI chat of an ioBroker editor.
  * The tool runs in the browser, so the service must allow the origin of the editor (IOB_RAG_CORS).
+ * If the service is protected with IOB_RAG_TOKEN, pass the same token here. It is visible to every user
+ * of the editor, so it only keeps other clients on the network away, not the editor's users.
  */
-export function searchIoBrokerDocsTool(baseUrl: string): AiTool {
+export function searchIoBrokerDocsTool(baseUrl: string, token?: string): AiTool {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
     return {
         definition: {
             type: 'function',
@@ -25,7 +31,7 @@ export function searchIoBrokerDocsTool(baseUrl: string): AiTool {
         run: async args => {
             const response = await fetch(`${baseUrl}/query`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers,
                 body: JSON.stringify({ question: String(args.question), top_k: Number(args.top_k) || 5 }),
             });
             if (!response.ok) {

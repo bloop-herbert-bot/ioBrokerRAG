@@ -10,7 +10,7 @@ Local search over public ioBroker documentation and source code, for humans and 
 The index is built locally and is not distributed. `privacy.local.txt` can list terms that must never enter an index; that file stays out of Git.
 
 ## Use
-Requires Python 3.11 to 3.13, about 6 GB RAM and 16 GB disk. The models are downloaded on first use.
+Requires Python 3.12 or 3.13, about 6 GB RAM and 16 GB disk. The models are downloaded on first use.
 
 ```bash
 python3 -m venv .venv
