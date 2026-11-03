@@ -1,5 +1,5 @@
 fastapi==0.162.0
 httpx
 mcp==2.3.0
-numpy==2.4.6
+numpy==2.5.4
 pytest==9.2.0
