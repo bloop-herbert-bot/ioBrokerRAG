@@ -3,7 +3,9 @@
 set -euo pipefail
 cd /opt/iobroker-rag
 export HF_HOME=/opt/iobroker-rag/hf HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
-export IOB_RAG_OLLAMA="${IOB_RAG_OLLAMA:-http://192.168.10.4:11435}"
+# Set IOB_RAG_OLLAMA=http://<gpu-host>:11434 in /etc/default/iobroker-rag to embed on a GPU; without it the build runs on the CPU.
+[ -f /etc/default/iobroker-rag ] && . /etc/default/iobroker-rag
+export IOB_RAG_OLLAMA
 MIN_HITS="${MIN_HITS:-25}"
 if [ -f index/staging/chunks.db ]; then
     .venv/bin/python -m iobroker_rag.build --resume --no-switch

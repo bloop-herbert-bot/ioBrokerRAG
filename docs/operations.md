@@ -4,6 +4,7 @@ Requirements: about 6 GB RAM and 16 GB disk with reranker. The embedding step ta
 
 1. Copy the repository to `/opt/iobroker-rag`, create the venv, download the models once into `hf/`.
 2. Install `deploy/iobroker-rag.service` and `deploy/iobroker-rag-rebuild.timer`.
+3. Optional: put `IOB_RAG_OLLAMA=http://<gpu-host>:11434` into `/etc/default/iobroker-rag` so the weekly rebuild embeds on a GPU.
 
 The rebuild writes to `index/staging`, tests it on a spare port with `eval/run.py` and switches only if the test passes. The previous index stays in `index/previous`. To go back, swap `index/live` and `index/previous` and restart the service.
 

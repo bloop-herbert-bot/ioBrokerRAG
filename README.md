@@ -9,6 +9,8 @@ Local search over public ioBroker documentation and source code, for humans and 
 
 The index is built locally and is not distributed. `privacy.local.txt` can list terms that must never enter an index; that file stays out of Git.
 
+The REST API is compatible with [iobroker-rag](https://github.com/Skeletor-ai/iobroker-rag) by Jey-Cee, so existing clients keep working. The code is an independent implementation.
+
 ## Use
 Requires Python 3.12 or 3.13, about 6 GB RAM and 16 GB disk. The models are downloaded on first use.
 
