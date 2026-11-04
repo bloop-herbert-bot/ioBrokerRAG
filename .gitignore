@@ -5,3 +5,4 @@ data/
 index/
 privacy.local.txt
 .pytest_cache/
+eval/answers-out/

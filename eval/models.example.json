@@ -1,0 +1,13 @@
+{
+  "_comment": "Type ollama uses the native API (num_ctx is settable, the /v1 endpoint keeps the small default context and cuts long RAG prompts). Type openai works with any OpenAI-compatible endpoint: iobroker.ai-server, LiteLLM, cloud APIs. api_key_env names an environment variable, the key itself never goes into this file.",
+  "backends": {
+    "ollama": {"type": "ollama", "base_url": "http://127.0.0.1:11434", "num_ctx": 16384},
+    "cloud": {"type": "openai", "base_url": "https://api.openai.com/v1", "api_key_env": "OPENAI_API_KEY"}
+  },
+  "models": [
+    {"tier": "local", "name": "gemma4-26b", "backend": "ollama", "model": "gemma4:26b-a4b-it-qat"}
+  ],
+  "judges": [
+    {"name": "qwen3.8-27b", "backend": "ollama", "model": "qwen3.8:27b"}
+  ]
+}
