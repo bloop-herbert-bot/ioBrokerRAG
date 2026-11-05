@@ -34,14 +34,29 @@ Checkouts are sparse: only the included directories and the root files are downl
 
 ### Numbers
 
-Measured on 2026-11-05 on a 4-core machine without GPU, sample of 40 adapter repositories drawn at random from the `allow` list:
+First full build with all adapters, 2026-11-05, production machine (4 cores, 6 GB RAM, no GPU, embeddings through Ollama on a GPU host):
 
-| | sample (40 repositories) | projected for 819 |
+| | before (core only) | after (core + 819 adapters) |
 |---|---|---|
-| chunks | 1,317 | about 27,000 |
-| checkout on disk | 177 MB sparse (323 MB full clone) | about 3.6 GB (7 GB) |
-| clone + chunk, first run | 69 s | about 25 minutes |
+| repositories | 15 | 834 (829 with chunks) |
+| chunks | 61,903 | 67,660 (core 39,166, adapters 28,494) |
+| of which ioBroker.docs | 53,928 | 30,883 (English `adapterref` copies dropped) |
+| checkouts on disk | 2.3 GB | 3.5 GB (sparse) |
+| index on disk | 551 MB | 302 MB |
+| clone + chunk | | 29 min |
+| embedding (GPU via Ollama, `--full`) | about 20 min | 27 min (67,660 vectors, 42/s) |
+| build total incl. test and switch | | 59 min |
+| RAM peak of the build | | 3.8 GB |
 
-The core index has about 62,000 chunks, of which the English `adapterref` copies for adapters now indexed from their own repository disappear. Expect an index of roughly 80,000 chunks. Embedding the new chunks once takes about 10 minutes on a GPU through Ollama, or about 8 hours on the CPU; afterwards a weekly incremental run embeds only what changed.
+The index got smaller because the English adapter READMEs copied into ioBroker.docs were indexed once per adapter before and are now replaced by the original. The 24 `review` adapters are included on this installation (`index_review: true`).
 
-Still to measure on the production machine after the first full build: total build time with all adapters, RAM during the build, size of the weekly change set and the time of an incremental run. `eval/run.py` with both question sets before and after.
+Retrieval test (`eval/run.py`, top 5 with reranker), before → after:
+
+| set | hits@1 | hits@5 | MRR |
+|---|---|---|---|
+| release set, 30 questions | 21 → 20 | 27 | 0.768 |
+| practice set, 65 questions | 31 → 28 | 54 → 49 | 0.608 → 0.539 |
+
+The adapter sources did not improve the practice set; five questions lost their top-5 hit. All of them are general questions (orphaned objects, disabling an instance, VIS bindings, error messages) whose answer lives in the core documentation and that are now answered with chunks of unrelated adapter READMEs, mostly the German `adapterref` copies and adapter `docs/` folders. Two variants were measured against the same index and rejected: a rerank pool that puts unpenalized chunks first (release 26/30, practice 47/65) and `IOB_RAG_CORE_BOOST=4` (release 27/30 with hits@1 19, practice 48/65 with hits@1 30, MRR 0.552). The reranker, not the candidate pool, prefers the adapter chunks; a quota per source type is the next thing to try.
+
+Still to measure: size of a typical weekly change set and the time of an incremental run (first weekly timer run after this build).
