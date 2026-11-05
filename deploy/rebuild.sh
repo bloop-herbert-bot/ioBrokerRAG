@@ -1,5 +1,7 @@
 #!/bin/bash
 # Rebuild into staging, test it on a spare port, switch only after the test passed.
+# Incremental by default: unchanged repositories are not fetched, unchanged chunks keep their vectors.
+# FULL=1 fetches and embeds everything (after a model change, or once a month).
 set -euo pipefail
 cd /opt/iobroker-rag
 export HF_HOME=/opt/iobroker-rag/hf HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false
@@ -7,10 +9,12 @@ export HF_HOME=/opt/iobroker-rag/hf HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=fals
 [ -f /etc/default/iobroker-rag ] && . /etc/default/iobroker-rag
 export IOB_RAG_OLLAMA
 MIN_HITS="${MIN_HITS:-25}"
+MODE=""
+[ "${FULL:-0}" = "1" ] && MODE="--full"
 if [ -f index/staging/chunks.db ]; then
-    .venv/bin/python -m iobroker_rag.build --resume --no-switch
+    .venv/bin/python -m iobroker_rag.build --resume --no-switch $MODE
 else
-    .venv/bin/python -m iobroker_rag.build --no-switch
+    .venv/bin/python -m iobroker_rag.build --no-switch $MODE
 fi
 IOB_RAG_INDEX=index/staging .venv/bin/uvicorn iobroker_rag.server:app --host 127.0.0.1 --port 8399 &
 TEST=$!
