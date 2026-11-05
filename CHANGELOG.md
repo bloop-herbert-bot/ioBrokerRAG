@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.0
 - Adapter documentation from the ioBroker Latest repository: `tools/sync_adapters.py` generates `sources.adapters.json` (README, `docs/`, CHANGELOG of every adapter with an allowed license). English `adapterref` copies in ioBroker.docs are skipped for indexed adapters, translations stay.
 - License policy in `sources.json` (`allow` / `review` / `deny`), applied by the generator and by `tools/check_sources.py`; documented in `CONTRIBUTING.md`. This installation indexes `review` sources too (`index_review: true`), copyleft documentation is read locally only.
 - Incremental rebuild: repositories whose remote tip equals the indexed commit are not fetched, chunks with unchanged text take their vector from the live index. `--full` or `FULL=1` for a complete rebuild.
