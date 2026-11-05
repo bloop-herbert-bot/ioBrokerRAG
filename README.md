@@ -3,7 +3,7 @@
 Local search over public ioBroker documentation and source code, for humans and AI assistants. It runs on your own hardware; no question leaves the machine.
 
 ## How it works
-- `sources.json` is an allowlist. Only those public repositories are indexed, each with a checked license.
+- `sources.json` is an allowlist. Only those public repositories are indexed, each with a checked license. `sources.adapters.json` adds the documentation of every adapter in the ioBroker Latest repository whose license the policy allows; it is generated, not maintained by hand.
 - Search combines vectors (BGE-M3) and BM25 keywords, then reranks the best candidates.
 - Every result names repository, file, commit and license.
 
@@ -23,7 +23,7 @@ python3 -m venv .venv
 curl -X POST localhost:8321/query -H 'Content-Type: application/json' -d '{"question":"How do I set a state with ack?","top_k":5}'
 ```
 
-`--quick` builds a small index for a first try. Without it, all sources are indexed: about 17 hours on a CPU, or about 20 minutes with `IOB_RAG_OLLAMA=http://<host>:11434` on a GPU machine with `ollama pull bge-m3`.
+`--quick` builds a small index for a first try. Without it, all sources are indexed: about 17 hours on a CPU, or about 20 minutes with `IOB_RAG_OLLAMA=http://<host>:11434` on a GPU machine with `ollama pull bge-m3`. Every later build is incremental: only repositories with a new commit are fetched, only changed chunks are embedded.
 
 To connect an AI model, use any MCP client with `http://<host>:8321/mcp`. Details in [integrations](docs/integrations.md).
 

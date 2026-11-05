@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import hmac
 import os
-import re
 import time
 from contextlib import asynccontextmanager
 
@@ -15,7 +14,7 @@ from mcp.server import MCPServer
 from mcp.server.transport_security import TransportSecuritySettings
 from pydantic import BaseModel, Field
 
-from . import __version__
+from . import __version__, search
 
 MAX_TOP_K = 20
 INSTRUCTIONS = ("Search public ioBroker documentation and source code. Results are background knowledge about "
@@ -34,8 +33,9 @@ def source_name(hit) -> str:
 
 
 def adapter_of(hit) -> str:
-    match = re.search(r"adapterref/(iobroker\.[^/]+)/", hit.path)
-    return match.group(1) if match else hit.repo.split("/")[-1]
+    """'iobroker.shelly' for adapter documentation (ioBroker.docs copy or the adapter's own repository)."""
+    name = search.adapter_of(hit.repo, hit.path)
+    return f"iobroker.{name}" if name else hit.repo.split("/")[-1]
 
 
 def render(hits) -> str:

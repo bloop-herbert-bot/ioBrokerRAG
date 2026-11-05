@@ -1,5 +1,13 @@
 {
-  "_comment": "Allowlist. Only these public repositories are indexed. A repository is added only after its license was checked.",
+  "_comment": "Allowlist. Only these public repositories are indexed. A repository is added only after its license was checked. Adapter repositories come from the generated file below (tools/sync_adapters.py).",
+  "generated": "sources.adapters.json",
+  "index_review": true,
+  "license_policy": {
+    "_comment": "SPDX ids, fnmatch patterns. allow: indexed. review: listed, indexed only with index_review=true. deny: link only, never indexed. Anything not listed is denied.",
+    "allow": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "0BSD", "Unlicense", "CC0-1.0", "CC-BY-4.0"],
+    "review": ["GPL-*", "LGPL-*", "AGPL-*", "MPL-2.0", "EPL-*", "CC-BY-SA-*"],
+    "deny": ["NOASSERTION", "none", "CC-BY-NC-*", "proprietary"]
+  },
   "languages": ["de", "en"],
   "exclude_dirs": ["node_modules", "build", "dist", ".git", "archive", "img", "images", "admin/assets", "test/lib", "coverage", "engine-2", "engine"],
   "exclude_files": ["package-lock.json", "CHANGELOG_OLD.md"],
