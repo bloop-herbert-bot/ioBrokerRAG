@@ -4,10 +4,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
-def test_every_source_has_a_checked_license():
+def test_every_source_has_an_allowed_license():
+    from iobroker_rag import licenses
     config = json.loads((ROOT / "sources.json").read_text(encoding="utf-8"))
-    allowed = {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause"}
-    assert all(r["license"] in allowed for r in config["repos"])
+    policy = config["license_policy"]
+    assert all(licenses.classify(r["license"], policy) == "allow" for r in config["repos"])
+    generated = ROOT / config["generated"]
+    if generated.exists():
+        for entry in json.loads(generated.read_text(encoding="utf-8"))["repos"]:
+            assert entry["policy"] in ("allow", "review") and licenses.classify(entry["license"], policy) != "deny"
 
 
 def test_eval_questions_are_well_formed():
