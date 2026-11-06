@@ -25,7 +25,7 @@ curl -X POST localhost:8321/query -H 'Content-Type: application/json' -d '{"ques
 
 `--quick` builds a small index for a first try. Without it, all sources are indexed: about 17 hours on a CPU, or about 20 minutes with `IOB_RAG_OLLAMA=http://<host>:11434` on a GPU machine with `ollama pull bge-m3`. Every later build is incremental: only repositories with a new commit are fetched, only changed chunks are embedded.
 
-To connect an AI model, use any MCP client with `http://<host>:8321/mcp`. Details in [integrations](docs/integrations.md).
+To connect an AI model, use any MCP client with `http://<host>:8321/mcp`. Details in [integrations](docs/integrations.md). Scripts use the REST API, documented in [REST API](docs/api.md).
 
 For long-term operation see [operations](docs/operations.md).
 

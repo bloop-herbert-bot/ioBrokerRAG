@@ -60,3 +60,49 @@ def test_token(monkeypatch):
         assert rpc(c, "tools/list").status_code == 401
         ok = c.post("/query", json={"question": "abc"}, headers={"Authorization": "Bearer secret"})
         assert ok.status_code == 200
+
+
+def test_source_fields_are_complete_and_typed(client):
+    d = client.post("/query", json={"question": "shelly mqtt", "top_k": 1}).json()
+    assert set(d) == {"context", "sources", "query_time_ms", "total_results"}
+    src = d["sources"][0]
+    assert set(src) == {"file", "repo", "type", "language", "adapter", "section", "relevance", "score",
+                        "license", "license_status", "commit"}
+    assert src["file"] == "ioBroker.docs/docs/en/adapterref/iobroker.shelly/README.md"
+    assert src["repo"] == "ioBroker/ioBroker.docs" and src["type"] == "doc" and src["language"] == "en"
+    assert src["license"] == "MIT" and src["license_status"] == "allow" and src["commit"] == "abc"
+    assert isinstance(src["relevance"], float) and isinstance(src["score"], float)
+    assert d["total_results"] == len(d["sources"])
+
+
+def test_license_status_follows_the_policy():
+    class Copyleft(FakeSearcher):
+        def search(self, question, top_k=5, rerank=True):
+            hit = super().search(question, top_k, rerank)[0]
+            hit.license = "AGPL-3.0"
+            return [hit]
+    with TestClient(create_app(FakeIndex(), Copyleft())) as c:
+        assert c.post("/query", json={"question": "abc"}).json()["sources"][0]["license_status"] == "review"
+    policy = {"allow": ["AGPL-*"], "review": [], "deny": []}
+    with TestClient(create_app(FakeIndex(), Copyleft(), policy)) as c:
+        assert c.post("/query", json={"question": "abc"}).json()["sources"][0]["license_status"] == "allow"
+
+
+def test_unknown_fields_are_rejected(client):
+    r = client.post("/query", json={"question": "setState", "topk": 3})
+    assert r.status_code == 422 and r.json()["detail"][0]["type"] == "extra_forbidden"
+
+
+def test_health_reports_api_version(client):
+    d = client.get("/health").json()
+    assert d["status"] == "ok" and d["api_version"] == 1 and set(d) == {"status", "version", "api_version", "documents",
+                                                                         "model", "built_at"}
+
+
+def test_openapi_documents_the_response(client):
+    spec = client.get("/openapi.json").json()
+    schema = spec["paths"]["/query"]["post"]["responses"]["200"]["content"]["application/json"]["schema"]
+    assert schema["$ref"].endswith("/QueryResponse")
+    source = spec["components"]["schemas"]["Source"]["properties"]
+    assert all(p.get("description") for p in source.values())
+    assert spec["components"]["schemas"]["Query"]["additionalProperties"] is False

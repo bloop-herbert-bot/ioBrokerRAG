@@ -1,6 +1,7 @@
 """Entry point for uvicorn: loads the index and the models once."""
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
@@ -11,4 +12,5 @@ from .store import Index
 
 ROOT = Path(__file__).resolve().parent.parent
 index = Index(Path(os.environ.get("IOB_RAG_INDEX", ROOT / "index" / "live")))
-app = create_app(index, Searcher(index, Embedder(index.meta["embed_model"]), Reranker()))
+policy = json.loads((ROOT / "sources.json").read_text()).get("license_policy")  # same policy as the build
+app = create_app(index, Searcher(index, Embedder(index.meta["embed_model"]), Reranker()), policy)
