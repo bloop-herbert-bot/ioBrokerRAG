@@ -60,6 +60,10 @@ class Caller:
             body = {"model": spec["model"], "stream": False, "options": {"temperature": 0, "num_ctx": b.get("num_ctx", 16384)},
                     "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
             text = post(b["base_url"].rstrip("/") + "/api/chat", body, timeout=900)["message"]["content"] or ""
+            if not text.strip():
+                # Thinking models sometimes spend the whole turn thinking and return no content; retry once without thinking.
+                body["think"] = False
+                text = post(b["base_url"].rstrip("/") + "/api/chat", body, timeout=900)["message"]["content"] or ""
         elif b["type"] == "openclaw":
             cmd = ["openclaw", "infer", "model", "run", "--model", spec["model"], "--json", "--prompt", f"{system}\n\n{user}"]
             if b.get("agent"):
@@ -71,6 +75,9 @@ class Caller:
             d = json.loads(out) if out else {"ok": False, "error": {"message": p.stderr[-300:]}}
             if not d.get("ok"):
                 raise RuntimeError(d.get("error", {}).get("message", "openclaw failed")[:300])
+            used = f"{d.get('provider')}/{d.get('model')}"
+            if used != spec["model"] or d.get("attempts"):
+                raise RuntimeError(f"answered by {used} instead of {spec['model']} (attempts: {d.get('attempts')})")
             text = d["outputs"][0]["text"] or ""
         else:
             raise ValueError(f"unknown backend type {b['type']}")
