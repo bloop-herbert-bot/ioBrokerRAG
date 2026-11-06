@@ -1,0 +1,92 @@
+{
+ "_comment": "Configuration of the 2026-11-05 run. Cloud models from a GitHub Copilot subscription via the OpenClaw CLI (openclaw infer model run), provider/model checked on every call. Local reference model through Ollama (the run used an Ollama on a separate GPU host; set base_url to yours). Tiers follow vendor naming (assumption). Copilot offers no small Google model. Three judges, one per major vendor.",
+ "backends": {
+  "copilot": {
+   "type": "openclaw"
+  },
+  "ollama": {
+   "type": "ollama",
+   "base_url": "http://127.0.0.1:11434",
+   "num_ctx": 16384
+  }
+ },
+ "models": [
+  {
+   "tier": "top",
+   "name": "claude-opus-5.5",
+   "backend": "copilot",
+   "model": "github-copilot/claude-opus-5.5"
+  },
+  {
+   "tier": "top",
+   "name": "gpt-6.1-sol",
+   "backend": "copilot",
+   "model": "github-copilot/gpt-6.1-sol"
+  },
+  {
+   "tier": "top",
+   "name": "gemini-4-argon",
+   "backend": "copilot",
+   "model": "github-copilot/gemini-4-argon"
+  },
+  {
+   "tier": "top",
+   "name": "grok-4.6",
+   "backend": "copilot",
+   "model": "github-copilot/grok-4.6"
+  },
+  {
+   "tier": "medium",
+   "name": "claude-sonnet-5.5",
+   "backend": "copilot",
+   "model": "github-copilot/claude-sonnet-5.5"
+  },
+  {
+   "tier": "medium",
+   "name": "gpt-6.1-terra",
+   "backend": "copilot",
+   "model": "github-copilot/gpt-6.1-terra"
+  },
+  {
+   "tier": "medium",
+   "name": "gemini-3.8-flash",
+   "backend": "copilot",
+   "model": "github-copilot/gemini-3.8-flash"
+  },
+  {
+   "tier": "light",
+   "name": "claude-haiku-5.5",
+   "backend": "copilot",
+   "model": "github-copilot/claude-haiku-5.5"
+  },
+  {
+   "tier": "light",
+   "name": "gpt-6-luna",
+   "backend": "copilot",
+   "model": "github-copilot/gpt-6-luna"
+  },
+  {
+   "tier": "local",
+   "name": "gemma4-26b",
+   "backend": "ollama",
+   "model": "gemma4:26b-a4b-it-qat"
+  }
+ ],
+ "judges": [
+  {
+   "name": "judge-claude-opus-5.5",
+   "backend": "copilot",
+   "model": "github-copilot/claude-opus-5.5"
+  },
+  {
+   "name": "judge-gpt-6.1-sol",
+   "backend": "copilot",
+   "model": "github-copilot/gpt-6.1-sol"
+  },
+  {
+   "name": "judge-gemini-4-argon",
+   "backend": "copilot",
+   "model": "github-copilot/gemini-4-argon"
+  }
+ ]
+}
