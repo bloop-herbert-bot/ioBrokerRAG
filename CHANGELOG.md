@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+- REST API version 1, documented in `docs/api.md`: request and response fields, errors, stability rules. `/openapi.json` now describes the response of `/query`, `/health` and `/stats`.
+- `/query` sources have two new fields: `repo` and `license_status` (`allow` / `review` / `deny`, from the license policy in `sources.json`).
+- `/health` reports `api_version`.
+- Unknown request fields are rejected with 422 instead of being ignored.
+
 ## 0.4.0
 - Adapter documentation from the ioBroker Latest repository: `tools/sync_adapters.py` generates `sources.adapters.json` (README, `docs/`, CHANGELOG of every adapter with an allowed license). English `adapterref` copies in ioBroker.docs are skipped for indexed adapters, translations stay.
 - License policy in `sources.json` (`allow` / `review` / `deny`), applied by the generator and by `tools/check_sources.py`; documented in `CONTRIBUTING.md`. This installation indexes `review` sources too (`index_review: true`), copyleft documentation is read locally only.

@@ -3,7 +3,7 @@
 The service speaks two protocols on the same port.
 
 ## REST
-`POST /query` with `{"question": "...", "top_k": 5}` returns `context` and `sources`. `GET /health` needs no token.
+`POST /query` with `{"question": "...", "top_k": 5}` returns `context` and `sources` with file, license and license status per result. Request and response fields, errors and the stability rules: [REST API](api.md). `GET /health` needs no token.
 
 ## MCP
 Streamable HTTP at `/mcp`, one tool: `search_iobroker_docs(question, top_k)`. Example for a client configuration:
